@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Expense Tracker</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f2f2f2;
+            text-align: center;
+        }
+
+        .container {
+            width: 400px;
+            margin: 50px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px gray;
+        }
+
+        input, button {
+            padding: 10px;
+            margin: 8px;
+            width: 85%;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        li {
+            list-style: none;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        #total {
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Expense Tracker</h1>
+
+    <input type="text" id="expenseName" placeholder="Expense Name">
+
+    <input type="number" id="expenseAmount" placeholder="Amount">
+
+    <button onclick="addExpense()">Add Expense</button>
+
+    <h2>Expenses</h2>
+
+    <ul id="expenseList"></ul>
+
+    <p id="total">Total: ₹0</p>
+
+</div>
+
+<script>
+
+    let total = 0;
+
+    function addExpense() {
+
+        let name = document.getElementById("expenseName").value;
+        let amount = document.getElementById("expenseAmount").value;
+
+        if (name === "" || amount === "") {
+            alert("Please enter expense name and amount");
+            return;
+        }
+
+        let list = document.getElementById("expenseList");
+
+        let item = document.createElement("li");
+
+        item.innerHTML = name + " - ₹" + amount;
+
+        list.appendChild(item);
+
+        total = total + Number(amount);
+
+        document.getElementById("total").innerHTML =
+            "Total: ₹" + total;
+
+        document.getElementById("expenseName").value = "";
+        document.getElementById("expenseAmount").value = "";
+    }
+
+</script>
+
+</body>
+</html>
