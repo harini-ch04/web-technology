@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Library Management System</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f2f2f2;
+            margin: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 80%;
+            margin: 30px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        input {
+            padding: 10px;
+            margin: 5px;
+            width: 200px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #333;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Library Management System</h1>
+</header>
+
+<div class="container">
+
+    <h2>Add Book</h2>
+
+    <input type="text" id="bookId" placeholder="Book ID">
+    <input type="text" id="bookName" placeholder="Book Name">
+    <input type="text" id="author" placeholder="Author">
+
+    <button onclick="addBook()">Add Book</button>
+
+    <h2>Book List</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Book ID</th>
+                <th>Book Name</th>
+                <th>Author</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+
+        <tbody id="bookTable">
+        </tbody>
+    </table>
+
+</div>
+
+<script>
+
+function addBook() {
+
+    let id = document.getElementById("bookId").value;
+    let name = document.getElementById("bookName").value;
+    let author = document.getElementById("author").value;
+
+    if (id == "" || name == "" || author == "") {
+        alert("Please enter all details");
+        return;
+    }
+
+    let table = document.getElementById("bookTable");
+
+    let row = table.insertRow();
+
+    row.insertCell(0).innerHTML = id;
+    row.insertCell(1).innerHTML = name;
+    row.insertCell(2).innerHTML = author;
+    row.insertCell(3).innerHTML = "Available";
+
+    document.getElementById("bookId").value = "";
+    document.getElementById("bookName").value = "";
+    document.getElementById("author").value = "";
+
+    alert("Book added successfully!");
+}
+
+</script>
+
+</body>
+</html>
