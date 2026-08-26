@@ -1,0 +1,110 @@
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Online Voting System</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f2f2f2;
+            text-align: center;
+        }
+
+        .container {
+            width: 400px;
+            margin: 80px auto;
+            padding: 25px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px gray;
+        }
+
+        input, select, button {
+            padding: 10px;
+            margin: 8px;
+            width: 80%;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Online Voting System</h2>
+
+    <input type="text" id="name" placeholder="Enter your name">
+
+    <input type="text" id="voterId" placeholder="Enter Voter ID">
+
+    <select id="candidate">
+        <option value="">Select Candidate</option>
+        <option value="Candidate A">Candidate A</option>
+        <option value="Candidate B">Candidate B</option>
+        <option value="Candidate C">Candidate C</option>
+    </select>
+
+    <br>
+
+    <button onclick="vote()">Cast Vote</button>
+
+    <p id="result"></p>
+
+</div>
+
+<script>
+
+let votedIds = [];
+
+let votes = {
+    "Candidate A": 0,
+    "Candidate B": 0,
+    "Candidate C": 0
+};
+
+function vote() {
+
+    let name = document.getElementById("name").value;
+    let voterId = document.getElementById("voterId").value;
+    let candidate = document.getElementById("candidate").value;
+    let result = document.getElementById("result");
+
+    if (name === "" || voterId === "" || candidate === "") {
+        result.innerHTML = "Please fill all the details.";
+        return;
+    }
+
+    if (votedIds.includes(voterId)) {
+        result.innerHTML = "You have already voted!";
+        return;
+    }
+
+    votedIds.push(voterId);
+    votes[candidate]++;
+
+    result.innerHTML =
+        "Vote successfully submitted for " + candidate + "!";
+
+    document.getElementById("name").value = "";
+    document.getElementById("voterId").value = "";
+    document.getElementById("candidate").value = "";
+}
+
+</script>
+
+</body>
+</html>
+```

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Digital To-Do List</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            padding-top: 50px;
+        }
+
+        .todo-container {
+            background: white;
+            width: 400px;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px gray;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .input-box {
+            display: flex;
+            gap: 10px;
+        }
+
+        input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+        }
+
+        ul {
+            padding: 0;
+            list-style: none;
+        }
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            margin-top: 10px;
+            background: #f5f5f5;
+            border-radius: 5px;
+        }
+
+        li.completed span {
+            text-decoration: line-through;
+            color: gray;
+        }
+
+        .delete {
+            background-color: red;
+        }
+
+        #count {
+            text-align: center;
+            color: gray;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="todo-container">
+
+    <h1>Digital To-Do List</h1>
+
+    <div class="input-box">
+        <input type="text" id="taskInput" placeholder="Enter a task">
+        <button onclick="addTask()">Add</button>
+    </div>
+
+    <p id="count">Pending Tasks: 0</p>
+
+    <ul id="taskList"></ul>
+
+</div>
+
+<script>
+
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+    function displayTasks() {
+
+        const taskList = document.getElementById("taskList");
+        taskList.innerHTML = "";
+
+        tasks.forEach((task, index) => {
+
+            const li = document.createElement("li");
+
+            if (task.completed) {
+                li.classList.add("completed");
+            }
+
+            li.innerHTML = `
+                <span onclick="completeTask(${index})">
+                    ${task.name}
+                </span>
+
+                <button class="delete" onclick="deleteTask(${index})">
+                    Delete
+                </button>
+            `;
+
+            taskList.appendChild(li);
+        });
+
+        updateCount();
+    }
+
+    function addTask() {
+
+        const input = document.getElementById("taskInput");
+        const taskName = input.value.trim();
+
+        if (taskName === "") {
+            alert("Please enter a task!");
+            return;
+        }
+
+        tasks.push({
+            name: taskName,
+            completed: false
+        });
+
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+
+        input.value = "";
+
+        displayTasks();
+    }
+
+    function completeTask(index) {
+
+        tasks[index].completed = !tasks[index].completed;
+
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+
+        displayTasks();
+    }
+
+    function deleteTask(index) {
+
+        tasks.splice(index, 1);
+
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+
+        displayTasks();
+    }
+
+    function updateCount() {
+
+        const pending = tasks.filter(task => !task.completed).length;
+
+        document.getElementById("count").innerText =
+            "Pending Tasks: " + pending;
+    }
+
+    displayTasks();
+
+</script>
+
+</body>
+</html>
