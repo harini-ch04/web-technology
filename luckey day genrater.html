@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lucky Day Generator</title>
+
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial;
+            background-color: lightblue;
+            padding-top: 100px;
+        }
+
+        .box {
+            background-color: white;
+            width: 350px;
+            margin: auto;
+            padding: 30px;
+            border-radius: 15px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: purple;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="box">
+        <h1>🍀 Lucky Day Generator</h1>
+
+        <p>Enter your name:</p>
+
+        <input type="text" id="name" placeholder="Enter name">
+
+        <br><br>
+
+        <button onclick="generateLuckyDay()">Generate Lucky Day</button>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function generateLuckyDay() {
+            let name = document.getElementById("name").value;
+
+            if (name == "") {
+                document.getElementById("result").innerHTML =
+                    "Please enter your name!";
+                return;
+            }
+
+            let days = [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+                "Sunday"
+            ];
+
+            let luckyNumber = Math.floor(Math.random() * 100) + 1;
+            let luckyDay = days[Math.floor(Math.random() * days.length)];
+
+            document.getElementById("result").innerHTML =
+                "🍀 Hello " + name + "!<br>" +
+                "Your Lucky Day is: " + luckyDay + "<br>" +
+                "Your Lucky Number is: " + luckyNumber;
+        }
+    </script>
+
+</body>
+</html>
